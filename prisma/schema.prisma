@@ -8,10 +8,16 @@ datasource db {
 }
 
 model Order {
-  id        String    @id @default(uuid())
+  id        String       @id @default(uuid())
   amount    Float
-  createdAt DateTime  @default(now())
+  status    OrderStatus? @default(pending)
+  createdAt DateTime     @default(now())
   updatedAt DateTime?
 
   @@map("orders")
+}
+
+enum OrderStatus {
+  approved
+  pending
 }
