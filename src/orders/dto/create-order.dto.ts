@@ -1,1 +1,3 @@
-export class CreateOrderDto {}
+export class CreateOrderDto {
+  amount: number;
+}
