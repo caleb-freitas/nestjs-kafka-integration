@@ -22,5 +22,32 @@ services:
     depends_on:
       - postgres
 
+  zookeeper:
+    container_name: zookeeper
+    image: confluentinc/cp-zookeeper:latest
+    env_file:
+      - .env
+
+  kafka:
+    container_name: kafka
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    ports:
+      - 9092:9092
+    env_file:
+      - .env
+
+  control-center:
+    container_name: control_center
+    image: confluentinc/cp-enterprise-control-center:6.0.1
+    hostname: control-center
+    depends_on:
+      - kafka
+    ports:
+      - 9021:9021
+    env_file:
+      - .env
+
 volumes:
   postgres:
