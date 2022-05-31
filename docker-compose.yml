@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+  app:
+    build: .
+    container_name: app
+    entrypoint: wait-for postgres:5432 -t 40 -- sh -c "npm install && npx prisma migrate dev && npm run start:dev"
+    restart: always
+    volumes:
+      - .:/home/node/app
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+
+volumes:
+  postgres:
