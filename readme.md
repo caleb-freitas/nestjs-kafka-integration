@@ -1,6 +1,10 @@
 ## Project
 
-I will add some project info here later on
+This project simulates ordering a product. When the order is placed, a message is sent to a kafka consumer where payment is processed.
+
+Soon after, this consumer who processes the payment, once completed, sends a new message to a consumer that actually confirms the payment. This new message has as value a new order object with the status equal to approved.
+
+The last consumer, in turn, receives this message as a parameter and updates the order status database from pending to approved.
 
 ## Running the app
 
@@ -10,9 +14,9 @@ I will add some project info here later on
 
 ## Playing around
 
-- Start one terminal with `docker-compose exec app`
+- Run `docker-compose logs -f app` in another terminal
 
-- Make a `POST` request on `http://localhost:3000` with the following body
+- Make a `POST` request on `http://localhost:3000/orders` with the following body:
 
 ```json
 {
