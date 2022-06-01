@@ -1,6 +1,6 @@
 ## Project
 
-This project simulates ordering a product. When the order is placed, a message is sent to a kafka consumer where payment is processed.
+This project simulates product ordering and payment processing using producer/consumer with kafka. When the order is placed, a message is sent to a kafka consumer where payment is processed.
 
 Soon after, this consumer who processes the payment, once completed, sends a new message to a consumer that actually confirms the payment. This new message has as value a new order object with the status equal to approved.
 
